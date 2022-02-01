@@ -110,6 +110,7 @@ ENV/
 env.bak/
 venv.bak/
 .Loan_amount_env/
+.loan_amount_env
 
 # Spyder project settings
 .spyderproject
