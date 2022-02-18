@@ -227,7 +227,49 @@ def full_pipeline(df):
     return df_pipe_prep
 
 
-train_copy_prep = full_pipeline(train_copy)
+############################# Streamlit interface ############################
 
 
-st.write(train_copy_prep.head())
+st.write("""
+# Approved loan amount prediction
+This app predicts how much will be granted to a loan applicant. Just fill in the following information and click on the Predict button.
+""")
+
+
+# Gender input
+st.write("""
+## Gender
+""")
+input_gender = st.radio('Select you gender', ['Male', 'Female'], index=0)
+
+
+# Age input slider
+st.write("""
+## Age
+""")
+input_age = st.slider('Select your age', value=40,
+                      min_value=18, max_value=65, step=1)
+
+
+# Income
+st.write("""
+## Income
+""")
+input_income = np.int(st.text_input('Enter your income', 0))
+
+
+# Income stability
+st.write("""
+## Income stability
+""")
+income_stab = st.radio('How is your income stability',
+                       ['Low', 'High'], index=0)
+
+
+# Profession dropdown
+st.write("""
+## Profession
+""")
+professions = ['Working', 'Commercial associate', 'Pensioner', 'State servant']
+input_professions = st.selectbox(
+    'Select your profession', professions)
