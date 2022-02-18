@@ -275,34 +275,6 @@ input_professions = st.selectbox(
     'Select your profession', professions)
 
 
-# Type of Employment
-st.write("""
-## Type of Employment
-""")
-professions = [
-    'Laborers',
-    'Sales staff',
-    'Core staff',
-    'Managers',
-    'Drivers',
-    'Accountants',
-    'High skill tech staff',
-    'Medicine staff',
-    'Security staff',
-    'Cooking staff',
-    'Cleaning staff',
-    'Private service staff',
-    'Secretaries',
-    'Low-skill Laborers',
-    'Waiters/barmen staff',
-    'Realty agents',
-    'IT staff',
-    'HR staff',
-]
-input_professions = st.selectbox(
-    'Select your profession', professions)
-
-
 # Residence location dropdown
 st.write("""
 ## Residence location
@@ -316,8 +288,8 @@ location = st.selectbox(
 st.write("""
 ## Current loan expenses
 """)
-input_age = st.slider('Select your current loan expenses', value=0,
-                      min_value=0, max_value=3500, step=100)
+input_current_loan_amt = st.slider('Select your current loan expenses', value=0,
+                                   min_value=0, max_value=3500, step=100)
 
 
 # Expenses type 1
@@ -356,9 +328,10 @@ credit_score = st.slider('Select your credit score', value=740,
 st.write("""
 ## Loan default
 """)
-loan_default = st.radio('Have you ever had a loan default', [
-                        'Yes', 'No'], index=1)
-
+loan_default_dict = {'Yes': 1, 'No': 0}
+loan_default_input = st.radio('Have you ever had a loan default', [
+    'Yes', 'No'], index=1)
+loan_default_input_val = loan_default_dict.get(key=loan_default_input)
 
 # Has a credit card
 st.write("""
@@ -406,8 +379,10 @@ prop_location = st.selectbox(
 st.write("""
 ## Co-applicant
 """)
+co_applicant_dict = {'Yes': 1, 'No': 0}
 co_applicant = st.radio('Do you have a co-applicant?', [
                         'Yes', 'No'], index=1)
+co_applicant_val = co_applicant_dict.get(key=co_applicant)
 
 
 # Loan amount requested
@@ -415,3 +390,36 @@ st.write("""
 ## Loan amount requested
 """)
 loan_amount_req = np.int(st.text_input('Enter your desired loan amount', 0))
+
+st.markdown('##')
+st.markdown('##')
+# Button
+predict_bt = st.button('Predict')
+
+
+# list of all the inputs
+profile_to_predict = [
+    0,  # customer id
+    '',  # name
+    input_gender[:1],
+    input_age,
+    input_income,
+    income_stab,
+    input_professions,
+    '',  # type of employment
+    location,
+    loan_amount_req,
+    input_current_loan_amt,
+    exp_type_one[:1],
+    exp_type_two[:1],
+    dependents_count,
+    credit_score,
+    loan_default_input_val,
+    cc_status_input,
+    0,  # property id
+    property_age,
+    prop_price,
+    property_type_input,
+    prop_location,
+    co_applicant_val,
+]
