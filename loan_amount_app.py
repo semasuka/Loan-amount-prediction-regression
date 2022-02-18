@@ -273,3 +273,145 @@ st.write("""
 professions = ['Working', 'Commercial associate', 'Pensioner', 'State servant']
 input_professions = st.selectbox(
     'Select your profession', professions)
+
+
+# Type of Employment
+st.write("""
+## Type of Employment
+""")
+professions = [
+    'Laborers',
+    'Sales staff',
+    'Core staff',
+    'Managers',
+    'Drivers',
+    'Accountants',
+    'High skill tech staff',
+    'Medicine staff',
+    'Security staff',
+    'Cooking staff',
+    'Cleaning staff',
+    'Private service staff',
+    'Secretaries',
+    'Low-skill Laborers',
+    'Waiters/barmen staff',
+    'Realty agents',
+    'IT staff',
+    'HR staff',
+]
+input_professions = st.selectbox(
+    'Select your profession', professions)
+
+
+# Residence location dropdown
+st.write("""
+## Residence location
+""")
+locations = ['Semi-Urban', 'Rural', 'Urban']
+location = st.selectbox(
+    'Select your residence location', locations)
+
+
+# Current loan expenses
+st.write("""
+## Current loan expenses
+""")
+input_age = st.slider('Select your current loan expenses', value=0,
+                      min_value=0, max_value=3500, step=100)
+
+
+# Expenses type 1
+st.write("""
+## Expenses type 1
+""")
+exp_type_one = st.radio('Do you have expenses type one?', [
+                        'Yes', 'No'], index=1)
+
+
+# Expenses type 2
+st.write("""
+## Expenses type 2
+""")
+exp_type_two = st.radio('Do you have expenses type two?', [
+                        'Yes', 'No'], index=1)
+
+
+# Number of dependents
+st.write("""
+## Number of dependents
+""")
+dependents_count = st.slider('How many dependents do you have?', value=0,
+                             min_value=0, max_value=6, step=1)
+
+
+# Credit score
+st.write("""
+## Credit score
+""")
+credit_score = st.slider('Select your credit score', value=740,
+                         min_value=580, max_value=900, step=1)
+
+
+# Loan default
+st.write("""
+## Loan default
+""")
+loan_default = st.radio('Have you ever had a loan default', [
+                        'Yes', 'No'], index=1)
+
+
+# Has a credit card
+st.write("""
+## Credit card
+""")
+cc_status = ['Active', 'Inactive', 'Unpossessed']
+cc_status_input = st.selectbox(
+    'What is the status of your credit card', cc_status)
+
+
+# Property age
+st.write("""
+## Property age
+""")
+property_age = st.slider('Select the property age', value=6,
+                         min_value=1, max_value=100, step=1)
+
+
+# Property price
+st.write("""
+## Property price
+""")
+prop_price = np.int(st.text_input('Enter the property price', 0))
+
+
+# Property type
+st.write("""
+## Property type
+""")
+property_type = [1, 2, 3, 4]
+property_type_input = st.selectbox(
+    'Select the property type', property_type)
+
+
+# Property location dropdown
+st.write("""
+## Property location
+""")
+prop_locations = ['Semi-Urban', 'Rural', 'Urban']
+prop_location = st.selectbox(
+    'Select your property location', prop_locations)
+
+
+# Co-applicant
+st.write("""
+## Co-applicant
+""")
+co_applicant = st.radio('Do you have a co-applicant?', [
+                        'Yes', 'No'], index=1)
+
+
+# Loan amount requested
+st.write("""
+## Loan amount requested
+""")
+loan_amount_req = np.int(st.text_input('Enter your desired loan amount', 0))
