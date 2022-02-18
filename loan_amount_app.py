@@ -331,7 +331,7 @@ st.write("""
 loan_default_dict = {'Yes': 1, 'No': 0}
 loan_default_input = st.radio('Have you ever had a loan default', [
     'Yes', 'No'], index=1)
-loan_default_input_val = loan_default_dict.get(key=loan_default_input)
+loan_default_input_val = loan_default_dict.get(loan_default_input)
 
 # Has a credit card
 st.write("""
@@ -382,7 +382,7 @@ st.write("""
 co_applicant_dict = {'Yes': 1, 'No': 0}
 co_applicant = st.radio('Do you have a co-applicant?', [
                         'Yes', 'No'], index=1)
-co_applicant_val = co_applicant_dict.get(key=co_applicant)
+co_applicant_val = co_applicant_dict.get(co_applicant)
 
 
 # Loan amount requested
@@ -418,8 +418,15 @@ profile_to_predict = [
     cc_status_input,
     0,  # property id
     property_age,
-    prop_price,
     property_type_input,
     prop_location,
     co_applicant_val,
+    prop_price,
+    0  # loan amount sanctioned
 ]
+
+
+profile_to_predict_df = pd.DataFrame(
+    [profile_to_predict], columns=train_copy.columns)
+
+st.write(profile_to_predict_df)
