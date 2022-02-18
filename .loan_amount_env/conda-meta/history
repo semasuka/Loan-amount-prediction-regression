@@ -342,3 +342,15 @@
 +conda-forge/osx-arm64::watchdog-2.1.6-py310he2143c4_1
 +conda-forge/osx-arm64::widgetsnbextension-3.5.2-py310hbe9552e_1
 # update specs: ['python']
+==> 2022-02-17 17:24:53 <==
+# cmd: /Users/sternsemasuka/miniforge3/bin/conda install --prefix /Users/sternsemasuka/Desktop/ML/Project/Loan-amount-prediction-regression/.Loan_amount_env autopep8 -y
+# conda version: 4.11.0
++conda-forge/noarch::autopep8-1.6.0-pyhd8ed1ab_1
++conda-forge/noarch::pycodestyle-2.8.0-pyhd8ed1ab_0
+# update specs: ['autopep8']
+==> 2022-02-17 17:30:21 <==
+# cmd: /Users/sternsemasuka/miniforge3/bin/conda install -c conda-forge streamlit
+# conda version: 4.11.0
+-conda-forge/noarch::streamlit-1.5.0-pyhd8ed1ab_0
++conda-forge/noarch::streamlit-1.5.1-pyhd8ed1ab_1
+# update specs: ['streamlit']
