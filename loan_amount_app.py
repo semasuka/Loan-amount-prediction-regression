@@ -483,6 +483,6 @@ if predict_bt:
     with st_lottie_spinner(lottie_loading_an, quality='high', height='200px', width='200px'):
         final_pred = make_prediction()
     # if final_pred exists, then stop displaying the loading animation
-    st.success(
+    st.info(
         '## You have been approved for a loan amount of {0:.2f} USD'.format(final_pred[0]))
     st.balloons()
