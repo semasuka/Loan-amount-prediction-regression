@@ -255,7 +255,7 @@ input_age = st.slider('Select your age', value=40,
 st.write("""
 ## Income
 """)
-input_income = st.slider('Select your age', value=2500,
+input_income = st.slider('Select your income (biweekly)', value=2500,
                          min_value=0, max_value=5500, step=10)
 
 
@@ -398,7 +398,8 @@ st.markdown('##')
 st.markdown('##')
 # Button
 predict_bt = st.button('Predict')
-
+st.markdown('##')
+st.markdown('##')
 
 # list of all the inputs
 profile_to_predict = [
@@ -439,8 +440,49 @@ train_copy_with_profile_to_pred = pd.concat(
 
 
 # whole dataset prepared
-train_copy_with_profile_to_pred_prep = full_pipeline(
-    train_copy_with_profile_to_pred)
+profile_to_pred_prep = full_pipeline(
+    train_copy_with_profile_to_pred).tail(1).drop(columns=['Loan Sanction Amount (USD)'])
 
 
-st.write(train_copy_with_profile_to_pred_prep)
+# Animation function
+@st.experimental_memo
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+
+lottie_loading_an = load_lottieurl(
+    'https://assets3.lottiefiles.com/packages/lf20_szlepvdh.json')
+
+
+def make_prediction():
+    # connect to s3 bucket
+    # for s3 API keys when deployed on streamlit share
+    client = boto3.client(
+        's3', aws_access_key_id=st.secrets["access_key"], aws_secret_access_key=st.secrets["secret_access_key"])
+    # for s3 API keys when deployed on locally
+    # client = boto3.client('s3', aws_access_key_id='access_key',
+    #                       aws_secret_access_key='secret_access_key')
+
+    bucket_name = "loanamount"
+    key = "trained_Random Forest Regression"
+
+    # load the model from s3 in a temporary file
+    with tempfile.TemporaryFile() as fp:
+        client.download_fileobj(Fileobj=fp, Bucket=bucket_name, Key=key)
+        fp.seek(0)
+        model = joblib.load(fp)
+
+    # prediction from the model on AWS S3
+    return model.predict(profile_to_pred_prep)
+
+
+if predict_bt:
+    with st_lottie_spinner(lottie_loading_an, quality='high', height='200px', width='200px'):
+        final_pred = make_prediction()
+    # if final_pred exists, then stop displaying the loading animation
+    st.success(
+        '## You have been approved for a loan amount of {0:.2f} USD'.format(final_pred[0]))
+    st.balloons()
