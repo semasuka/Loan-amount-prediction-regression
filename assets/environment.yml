@@ -12,6 +12,7 @@ dependencies:
   - astor=0.8.1=pyh9f0ad1d_0
   - asttokens=2.0.5=pyhd8ed1ab_0
   - attrs=21.4.0=pyhd8ed1ab_0
+  - autopep8=1.6.0=pyhd8ed1ab_1
   - aws-c-auth=0.6.8=h77ca94e_1
   - aws-c-cal=0.5.12=hc1327b6_7
   - aws-c-common=0.6.17=h3422bc3_0
@@ -162,6 +163,7 @@ dependencies:
   - ptyprocess=0.7.0=pyhd3deb0d_0
   - pure_eval=0.2.2=pyhd8ed1ab_0
   - pyarrow=6.0.1=py310ha09ee0b_5_cpu
+  - pycodestyle=2.8.0=pyhd8ed1ab_0
   - pycparser=2.21=pyhd8ed1ab_0
   - pydantic=1.9.0=py310he2143c4_0
   - pydeck=0.7.1=pyh6c4a22f_0
@@ -198,7 +200,7 @@ dependencies:
   - sqlite=3.37.0=h72a2b83_0
   - stack_data=0.1.4=pyhd8ed1ab_0
   - statsmodels=0.13.1=py310h949c51b_0
-  - streamlit=1.5.0=pyhd8ed1ab_0
+  - streamlit=1.5.1=pyhd8ed1ab_1
   - tangled-up-in-unicode=0.1.0=pyhd8ed1ab_0
   - terminado=0.13.1=py310hbe9552e_0
   - testpath=0.5.0=pyhd8ed1ab_0
@@ -231,4 +233,6 @@ dependencies:
   - zipp=3.7.0=pyhd8ed1ab_0
   - zlib=1.2.11=hee7b306_1013
   - zstd=1.5.2=h861e0a7_0
+  - pip:
+    - streamlit-lottie==0.0.3
 prefix: /Users/sternsemasuka/Desktop/ML/Project/Loan-amount-prediction-regression/.Loan_amount_env
