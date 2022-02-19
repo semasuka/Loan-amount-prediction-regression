@@ -36,7 +36,7 @@ test_copy = test_original.copy()
 
 
 class OutlierImputer(BaseEstimator, TransformerMixin):
-    def __init__(self, feat_with_outliers=['Income (USD)', 'Loan Amount Request (USD)', 'Current Loan Expenses (USD)', 'Dependents', 'Property Age', 'Property Price']):
+    def __init__(self, feat_with_outliers=['Income (USD)', 'Loan Amount Request (USD)', 'Current Loan Expenses (USD)', 'Property Age', 'Property Price']):
         self.feat_with_outliers = feat_with_outliers
 
     def fit(self, df):
@@ -119,7 +119,7 @@ class DropFeatures(BaseEstimator, TransformerMixin):
 
 
 class ValueImputer(BaseEstimator, TransformerMixin):
-    def __init__(self, feat_with_999_val=['Co-Applicant', 'Current Loan Expenses (USD)', 'Loan Sanction Amount (USD)']):
+    def __init__(self, feat_with_999_val=['Co-Applicant', 'Current Loan Expenses (USD)', 'Loan Sanction Amount (USD)', 'Property Price']):
         self.feat_with_999_val = feat_with_999_val
 
     def fit(self, df):
@@ -196,7 +196,7 @@ class OneHotWithFeatNames(BaseEstimator, TransformerMixin):
 
 
 class SkewnessHandler(BaseEstimator, TransformerMixin):
-    def __init__(self, col_with_skewness=['Income (USD)', 'Loan Amount Request (USD)', 'Current Loan Expenses (USD)', 'Property Age', 'Property Type']):
+    def __init__(self, col_with_skewness=['Income (USD)', 'Loan Amount Request (USD)', 'Current Loan Expenses (USD)', 'Property Age']):
         self.col_with_skewness = col_with_skewness
 
     def fit(self, df):
@@ -214,10 +214,10 @@ class SkewnessHandler(BaseEstimator, TransformerMixin):
 
 def full_pipeline(df):
     pipeline = Pipeline([
+        ('drop features', DropFeatures()),
         ('outlier remover', OutlierImputer()),
         ('drop uncommon profession', DropUncommonProfession()),
         ('missing value imputer', MissingValueImputer()),
-        ('drop features', DropFeatures()),
         ('-999 value imputer', ValueImputer()),
         ('skewness handler', SkewnessHandler()),
         ('min max scaler', MinMaxWithFeatNames()),
@@ -255,7 +255,8 @@ input_age = st.slider('Select your age', value=40,
 st.write("""
 ## Income
 """)
-input_income = np.int(st.text_input('Enter your income', 0))
+input_income = st.slider('Select your age', value=2500,
+                         min_value=0, max_value=5500, step=10)
 
 
 # Income stability
@@ -289,7 +290,7 @@ st.write("""
 ## Current loan expenses
 """)
 input_current_loan_amt = st.slider('Select your current loan expenses', value=0,
-                                   min_value=0, max_value=3500, step=100)
+                                   min_value=0, max_value=1000, step=10)
 
 
 # Expenses type 1
@@ -313,7 +314,7 @@ st.write("""
 ## Number of dependents
 """)
 dependents_count = st.slider('How many dependents do you have?', value=0,
-                             min_value=0, max_value=6, step=1)
+                             min_value=0, max_value=4, step=1)
 
 
 # Credit score
@@ -346,15 +347,16 @@ cc_status_input = st.selectbox(
 st.write("""
 ## Property age
 """)
-property_age = st.slider('Select the property age', value=6,
-                         min_value=1, max_value=100, step=1)
+property_age = st.slider('Select the property age', value=5,
+                         min_value=1, max_value=14, step=1) * 365.25
 
 
 # Property price
 st.write("""
 ## Property price
 """)
-prop_price = np.int(st.text_input('Enter the property price', 0))
+prop_price = st.slider('Select your property price', value=0,
+                       min_value=0, max_value=355000, step=100)
 
 
 # Property type
@@ -389,7 +391,8 @@ co_applicant_val = co_applicant_dict.get(co_applicant)
 st.write("""
 ## Loan amount requested
 """)
-loan_amount_req = np.int(st.text_input('Enter your desired loan amount', 0))
+loan_amount_req = st.slider('Select your current loan expenses', value=0,
+                            min_value=0, max_value=240000, step=100)
 
 st.markdown('##')
 st.markdown('##')
@@ -399,7 +402,7 @@ predict_bt = st.button('Predict')
 
 # list of all the inputs
 profile_to_predict = [
-    0,  # customer id
+    '',  # customer id
     '',  # name
     input_gender[:1],
     input_age,
@@ -425,8 +428,19 @@ profile_to_predict = [
     0  # loan amount sanctioned
 ]
 
-
+# Convert to dataframe with column names
 profile_to_predict_df = pd.DataFrame(
     [profile_to_predict], columns=train_copy.columns)
 
-st.write(profile_to_predict_df)
+
+# add the profile to predict as a last row in the train data
+train_copy_with_profile_to_pred = pd.concat(
+    [train_copy, profile_to_predict_df], ignore_index=True)
+
+
+# whole dataset prepared
+train_copy_with_profile_to_pred_prep = full_pipeline(
+    train_copy_with_profile_to_pred)
+
+
+st.write(train_copy_with_profile_to_pred_prep)
