@@ -71,6 +71,8 @@ RMSE of random forest with the best hyperparameters.
 
 ![RMSE](assets/rmse.png)
 
+We have an RMSE on a range between 0 and 400000
+
 Top features of random forest with the best hyperparameters.
 
 ![Top 10](assets/top10.png)
@@ -81,7 +83,7 @@ Least useful features of random forest with the best hyperparameters.
 
 Top 3 models (with default parameters)
 
-| Model with the best hyperparameter     	                | RMSE 	|
+| Model with the best hyperparameter     	                | RMSE (range between 0 and 400000) 	|
 |-------------------	                                    |------------------	|
 | Random Forest      	                                    | 20791.86 	            |
 | Bagging   	                                            | 20780.02 	            |
