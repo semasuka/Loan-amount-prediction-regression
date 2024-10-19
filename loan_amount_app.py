@@ -467,6 +467,7 @@ st.write("""
 ## Loan amount requested
 """)
 loan_amount_req = st.slider(
+    "How much are you applying for?",
     value=0,
     min_value=0,
     max_value=240000,
